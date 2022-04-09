@@ -11,7 +11,8 @@ class Game:
       "winner": self.winner,
       "end": self.end,
       "turnNumber": self.turnNumber,
-      "currentPlayer": self.currentPlayer
+      "currentPlayer": self.currentPlayer,
+      "turnCounter": self.turnCounter
     })
 
   def register(self):
@@ -60,6 +61,7 @@ class Game:
     #self.currentPlayer = (self.currentPlayer + 1) % 2
     self.turnNumber += 1
     self.currentPlayer = self.turnNumber % 2
+    self.turnCounter = int(self.turnNumber / 2)
 
     if self.end[0] and self.end[1]:
       time.sleep(5)
@@ -109,7 +111,6 @@ class Game:
       if sum_p2 < c.defense:
         c.defense -= sum_p2
         sum_p2 = 0
-        break
       else:
         self.active[0].remove(c)
         sum_p2 -= c.defense
@@ -117,7 +118,6 @@ class Game:
       if sum_p1 < c.defense:
         c.defense -= sum_p1
         sum_p1 = 0
-        break
       else:
         self.active[1].remove(c)
         sum_p1 -= c.defense
@@ -142,6 +142,7 @@ class Game:
     self.registered = [False, False]
     self.currentPlayer = 0
     self.turnNumber = 0
+    self.turnCounter = 0
 
     self.gameOver = False
     self.winner = -1
