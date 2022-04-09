@@ -108,6 +108,7 @@ class Game:
     for c in self.active[0]:
       if sum_p2 < c.defense:
         c.defense -= sum_p2
+        sum_p2 = 0
         break
       else:
         self.active[0].remove(c)
@@ -115,6 +116,7 @@ class Game:
     for c in self.active[1]:
       if sum_p1 < c.defense:
         c.defense -= sum_p1
+        sum_p1 = 0
         break
       else:
         self.active[1].remove(c)
