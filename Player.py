@@ -5,6 +5,9 @@ class Player:
   def reduceMana(self, cost):
     self.mana = self.mana - cost
 
+  def addMana(self, amnt):
+    self.mana = self.mana + amnt
+
   def reduceHealth(self, dmg):
     self.health = self.health - dmg
 

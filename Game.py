@@ -1,4 +1,5 @@
 import random
+import json
 from Player import Player
 from Card import Card
 
@@ -18,11 +19,32 @@ class Game:
       cards.append(card.name)
     print(", ".join(cards))
 
+  def getActive(self, player):
+    cards = []
+    for card in self.active[player]:
+      cards.append(card.toDict())
+    return json.dumps(cards)
+
   def endTurn(self, player):
     self.end[player] = True
 
     if self.end[0] and self.end[1]:
       self.cardInteraction()
+      self.players[0].addMana(1)
+      self.players[1].addMana(1)
+
+      if self.players[0].health <= 0 and self.players[1].health > 0:
+        self.gameOver = True
+        self.winner = 1
+        # player 2 wins
+      elif self.players[1].health <= 0 and self.players[0].health > 0:
+        self.gameOver = True
+        self.winner = 0
+        pass
+        # player 1 wins
+      elif self.players[0].health <= 0 and self.players[1].health <= 0:
+        pass
+        # tie
   
   def playCard(self, player, card):
     c = self.players[player].getCard(card)
@@ -30,6 +52,8 @@ class Game:
       self.active[player].append(c)
       self.players[player].removeCard(c)
       self.players[player].reduceMana(c.manaCost)
+
+      self.active[player].sort(key=lambda x: x.priority)
     else:
       # cannot play card
       pass
@@ -72,17 +96,26 @@ class Game:
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
 
-  def __init__(self):
+  def reset(self):
     self.players = [Player(), Player()]
     self.end = [False, False]
     self.active = [[], []]
 
+    self.gameOver = False
+    self.winner = -1
+
     self.dealHands()
 
+  def __init__(self):
+    self.reset()
+
 deck = [
-  Card("Knight", 2, 3, 2), Card("Knight", 2, 3, 2),
-  Card("Squire", 1, 2, 3), Card("Squire", 1, 2, 3), 
-  Card("Minions", 6, 4, 3), Card("Minions", 6, 4, 3), 
-  Card("Wyvern", 8, 7, 6),
-  Card("Ninja", 3, 5, 1)
+  #negative priority goes first, positive goes last (last value)
+  Card("Knight", 2, 3, 2, 0), Card("Knight", 2, 3, 2, 0),
+  Card("Squire", 1, 2, 3, 0), Card("Squire", 1, 2, 3, 0), 
+  Card("Minions", 6, 4, 3, 0), Card("Minions", 6, 4, 3, 0), 
+  Card("Wyvern", 8, 7, 6, 0),
+  Card("Ninja", 3, 5, 1, 0),
+  Card("Wood Elf", 4, 4, 1, 2), 
+  Card("Giant Turtle", 4, 0, 8, -2)
 ]

@@ -19,9 +19,19 @@ def getHand():
     hand_dict.append(x.toDict())
   return json.dumps(hand_dict)
 
+@app.route("/getActive")
+def getActive():
+  active = game.getActive(int(request.args["player"]))
+  return active
+
 @app.route("/playCard")
 def playCard():
   game.playCard(int(request.args["player"]), int(request.args["card"]))
+  return "OK"
+
+@app.route("/reset")
+def reset():
+  game.reset()
   return "OK"
 
 if __name__ == "__main__":
