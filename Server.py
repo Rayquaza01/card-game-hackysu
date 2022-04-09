@@ -29,6 +29,14 @@ def playCard():
   game.playCard(int(request.args["player"]), int(request.args["card"]))
   return "OK"
 
+@app.route("/getState")
+def getGameState():
+  return game.getGameState()
+
+@app.route("/register")
+def register():
+  return json.dumps({"player": game.register})
+
 @app.route("/reset")
 def reset():
   game.reset()

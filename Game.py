@@ -4,6 +4,23 @@ from Player import Player
 from Card import Card
 
 class Game:
+  def getGameState(self):
+    return json.dumps({
+      "gameOver": self.gameOver,
+      "winner": self.winner,
+      "end": self.end
+    })
+
+  def register(self):
+    if not self.registered[0]:
+      self.registered[0] = True
+      return 0
+    elif not self.registered[1]:
+      self.registered[1] = True
+      return 1
+    else:
+      return -1
+  
   def printPlayer(self, player):
     self.players[player].print()
   
@@ -100,6 +117,7 @@ class Game:
     self.players = [Player(), Player()]
     self.end = [False, False]
     self.active = [[], []]
+    self.registered = [False, False]
 
     self.gameOver = False
     self.winner = -1
@@ -113,7 +131,7 @@ deck = [
   #negative priority goes first, positive goes last (last value)
   Card("Knight", 2, 3, 2, 0), Card("Knight", 2, 3, 2, 0),
   Card("Squire", 1, 2, 3, 0), Card("Squire", 1, 2, 3, 0), 
-  Card("Minions", 6, 4, 3, 0), Card("Minions", 6, 4, 3, 0), 
+  Card("Minions", 6, 4, 4, -1), Card("Minions", 6, 4, 4, -1), 
   Card("Wyvern", 8, 7, 6, 0),
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
