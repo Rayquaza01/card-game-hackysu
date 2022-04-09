@@ -53,8 +53,8 @@ class Game:
 
     if self.end[0] and self.end[1]:
       self.cardInteraction()
-      self.players[0].addMana(1)
-      self.players[1].addMana(1)
+      self.players[0].addMana(2)
+      self.players[1].addMana(2)
 
       if self.players[0].health <= 0 and self.players[1].health > 0:
         self.gameOver = True
@@ -141,5 +141,5 @@ deck = [
   Card("Wyvern", 8, 7, 6, 0),
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
-  Card("Giant Turtle", 4, 0, 8, -2)
+  Card("Giant Turtle", 5, 0, 8, -2)
 ]

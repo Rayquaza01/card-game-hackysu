@@ -28,6 +28,6 @@ class Player:
     print(", ".join(cards))
 
   def __init__(self):
-    self.health = 100
-    self.mana = 100
+    self.health = 30
+    self.mana = 25
     self.hand = []
