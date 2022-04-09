@@ -9,7 +9,9 @@ class Game:
     return json.dumps({
       "gameOver": self.gameOver,
       "winner": self.winner,
-      "end": self.end
+      "end": self.end,
+      "turnNumber": self.turnNumber,
+      "currentPlayer": self.currentPlayer
     })
 
   def register(self):
@@ -50,7 +52,14 @@ class Game:
     return json.dumps(cards)
 
   def endTurn(self, player):
+    if player != self.currentPlayer:
+      return
+
     self.end[player] = True
+
+    #self.currentPlayer = (self.currentPlayer + 1) % 2
+    self.turnNumber += 1
+    self.currentPlayer = self.turnNumber % 2
 
     if self.end[0] and self.end[1]:
       time.sleep(5)
@@ -72,6 +81,9 @@ class Game:
         # tie
   
   def playCard(self, player, card):
+    if player != self.currentPlayer:
+      return
+    
     c = self.players[player].getCard(card)
     if (self.players[player].mana > c.manaCost):
       self.active[player].append(c)
@@ -126,6 +138,8 @@ class Game:
     self.end = [False, False]
     self.active = [[], []]
     self.registered = [False, False]
+    self.currentPlayer = 0
+    self.turnNumber = 0
 
     self.gameOver = False
     self.winner = -1
