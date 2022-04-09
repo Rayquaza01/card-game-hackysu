@@ -35,7 +35,7 @@ def getGameState():
 
 @app.route("/register")
 def register():
-  return json.dumps({"player": game.register})
+  return json.dumps({"player": game.register()})
 
 @app.route("/reset")
 def reset():
@@ -43,4 +43,4 @@ def reset():
   return "OK"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=5000)

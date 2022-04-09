@@ -19,7 +19,7 @@ class Game:
       self.registered[1] = True
       return 1
     else:
-      return -1
+      return None
   
   def printPlayer(self, player):
     self.players[player].print()
