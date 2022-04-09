@@ -20,6 +20,12 @@ class Game:
       return 1
     else:
       return None
+
+    def getPlayerInfo(player):
+      return json.dumps({
+        "health": self.players[player].health,
+        "mana": self.players[player].mana
+      })
   
   def printPlayer(self, player):
     self.players[player].print()

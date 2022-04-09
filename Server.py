@@ -37,6 +37,10 @@ def getGameState():
 def register():
   return json.dumps({"player": game.register()})
 
+@app.route("/getPlayerInfo")
+def getPlayerInfo():
+  return game.getPlayerInfo(int(request.args["player"]))
+
 @app.route("/reset")
 def reset():
   game.reset()
