@@ -29,5 +29,5 @@ class Player:
 
   def __init__(self):
     self.health = 30
-    self.mana = 25
+    self.mana = 10
     self.hand = []

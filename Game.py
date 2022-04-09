@@ -66,8 +66,8 @@ class Game:
     if self.end[0] and self.end[1]:
       time.sleep(5)
       self.cardInteraction()
-      self.players[0].addMana(2)
-      self.players[1].addMana(2)
+      self.players[0].addMana(3)
+      self.players[1].addMana(3)
 
       if self.players[0].health <= 0 and self.players[1].health > 0:
         self.gameOver = True
