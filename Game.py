@@ -80,10 +80,9 @@ class Game:
     self.dealHands()
 
 deck = [
-  Card("Knight", 3, 3, 2),
-  Card("Knight", 3, 3, 2),
-  Card("Squire", 1, 2, 3), 
-  Card("Minions", 6, 4, 3), 
-  Card("Dragon", 10, 8, 8),
+  Card("Knight", 2, 3, 2), Card("Knight", 2, 3, 2),
+  Card("Squire", 1, 2, 3), Card("Squire", 1, 2, 3), 
+  Card("Minions", 6, 4, 3), Card("Minions", 6, 4, 3), 
+  Card("Wyvern", 8, 7, 6),
   Card("Ninja", 3, 5, 1)
 ]

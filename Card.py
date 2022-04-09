@@ -1,4 +1,12 @@
 class Card:
+  def toDict(self):
+    return {
+      "name": self.name,
+      "manaCost": self.manaCost,
+      "damage": self.damage,
+      "defense": self.defense
+    }
+  
   def print(self):
     print("Card name: " + self.name)
     print("Mana Cost: " + str(self.manaCost))
