@@ -21,11 +21,11 @@ class Game:
     else:
       return None
 
-    def getPlayerInfo(player):
-      return json.dumps({
-        "health": self.players[player].health,
-        "mana": self.players[player].mana
-      })
+  def getPlayerInfo(self, player):
+    return json.dumps({
+      "health": self.players[player].health,
+      "mana": self.players[player].mana
+    })
   
   def printPlayer(self, player):
     self.players[player].print()
@@ -138,6 +138,8 @@ deck = [
   Card("Knight", 2, 3, 2, 0), Card("Knight", 2, 3, 2, 0),
   Card("Squire", 1, 2, 3, 0), Card("Squire", 1, 2, 3, 0), 
   Card("Minions", 6, 4, 4, -1), Card("Minions", 6, 4, 4, -1), 
+  Card("Boar", 1, 1, 2, 0), Card("Boar", 1, 1, 2, 0),
+  Card("Bobcat", 1, 2, 1, 0), Card("Bobcat", 1, 2, 1, 0),
   Card("Wyvern", 8, 7, 6, 0),
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
