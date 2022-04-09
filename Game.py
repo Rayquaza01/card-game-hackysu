@@ -1,5 +1,6 @@
 import random
 import json
+import time
 from Player import Player
 from Card import Card
 
@@ -52,6 +53,7 @@ class Game:
     self.end[player] = True
 
     if self.end[0] and self.end[1]:
+      time.sleep(5)
       self.cardInteraction()
       self.players[0].addMana(2)
       self.players[1].addMana(2)
