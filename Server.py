@@ -12,8 +12,8 @@ def root():
 
 @app.route("/getHand")
 def getHand():
-  req = request.get_json()
-  hand = game.getHand(req.player)
+  print(request.args)
+  hand = game.getHand(int(request.args["player"]))
   hand_dict = []
   for x in hand:
     hand_dict.append(x.toDict())
@@ -21,8 +21,7 @@ def getHand():
 
 @app.route("/playCard")
 def playCard():
-  req = request.get_json()
-  game.playCard(req.card)
+  game.playCard(int(request.args["player"]), int(request.args["card"]))
   return "OK"
 
 if __name__ == "__main__":
