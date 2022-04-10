@@ -221,6 +221,7 @@ class Game:
         card.toBeRemoved = True
         player2TotalDamage = 0
 
+    # remove dead / spell cards from player 1's hand
     self.active[0] = list(filter(lambda x: not x.toBeRemoved, self.active[0]))
         
     # loop through player 1's active cards
@@ -242,22 +243,6 @@ class Game:
         player1TotalDamage = 0
 
     self.active[1] = list(filter(lambda x: not x.toBeRemoved, self.active[1]))
-
-#    for c in self.active[0]:
-#      if sum_p2 < c.defense:
-#        c.defense -= sum_p2
-#        sum_p2 = 0
-#      else:
-#        self.active[0].remove(c)
-#        sum_p2 -= c.defense
-#
-#    for c in self.active[1]:
-#      if sum_p1 < c.defense:
-#        c.defense -= sum_p1
-#        sum_p1 = 0
-#      else:
-#        self.active[1].remove(c)
-#        sum_p1 -= c.defense
 
     self.players[0].reduceHealth(player2TotalDamage)
     self.players[1].reduceHealth(player1TotalDamage)
@@ -304,6 +289,7 @@ deck = [
   Card("Fearsome Presence", 3, 0, 0, -3),
   Card("Empower", 3, 0, 0, 3)
 ]
+
 deckEmpowered = [
   Card("Black Knight", 0, 5, 4, 0), 
   Card("Eternal Squire", 0, 3, 5, 0),
