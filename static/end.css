@@ -1,6 +1,9 @@
 body {
     font-family: sans-serif;
     background-color: #eeeeeeee;
+}
+
+.end {
     text-align: center;
     height: 100%;
 }
