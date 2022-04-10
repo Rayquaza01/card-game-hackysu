@@ -1,3 +1,5 @@
+// Creates a card element on the page.
+// If cb is provided, the element will have a click action
 function createCard(card, cb) {
     const c = document.createElement("div");
     c.classList.add("card");
@@ -26,6 +28,7 @@ function createCard(card, cb) {
     priority.innerText = "Priority: " + (-card.priority).toString();
     c.appendChild(priority)
 
+    // add help link for spells
     if (card.defense === 0) {
         const help = document.createElement("a");
         help.href = "/static/spells.html#" + card.name;
@@ -149,4 +152,4 @@ setInterval(async () => {
             location.href = "/static/lose.html"
         }
     }
-}, 5000)
+}, 1000)
