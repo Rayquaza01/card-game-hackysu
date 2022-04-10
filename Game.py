@@ -93,6 +93,12 @@ class Game:
     
     c = self.players[player].getCard(card)
     if (self.players[player].mana >= c.manaCost):
+      if c.name == "Sun Card":
+        if self.players[player].health <= 28:
+          self.players[player].health = self.players[player].health + 2
+        else:
+          return
+
       if c.name == "Inspire":
         OK = False
         for card in self.active[player][::-1]:
@@ -101,6 +107,7 @@ class Game:
           else:
             card.damage = card.damage + 2
             OK = True
+            break
         if not OK:
           return
 
@@ -112,9 +119,9 @@ class Game:
           else:
             card.defense = card.defense + 2
             OK = True
+            break
         if not OK:
           return
-        
 
       self.active[player].append(c)
       self.players[player].removeCard(c)
@@ -213,8 +220,12 @@ class Game:
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
     # debug priority stuff
-    self.players[0].addCard(deck[15].__copy__())
-    self.players[1].addCard(deck[15].__copy__())
+    self.players[0].addCard(deck[14].__copy__())
+    self.players[1].addCard(deck[14].__copy__())
+    self.players[0].addCard(deck[16].__copy__())
+    self.players[1].addCard(deck[16].__copy__())
+    self.players[0].addCard(deck[17].__copy__())
+    self.players[1].addCard(deck[17].__copy__())
 
   def reset(self):
     self.players = [Player(), Player()]
@@ -246,5 +257,6 @@ deck = [
   Card("Giant Turtle", 5, 0, 8, -2), 
   Card("Fireball!", 3, 2, 0, 3), #Fireball: Spell that does 2 damage 
   Card("Inspire", 3, 0, 0, 3), #Inspire: Spell that adds 2 damage to the lowest priority non-spell card
-  Card("Harden", 3, 0, 0, 3)
+  Card("Harden", 3, 0, 0, 3),
+  Card("Sun Card", 3, 0, 0, 3)
 ]
