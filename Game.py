@@ -104,29 +104,60 @@ class Game:
     return sum
 
   def cardInteraction(self):
-    sum_p1 = self.getTotalDamage(0)
-    sum_p2 = self.getTotalDamage(1)
+    player1TotalDamage = self.getTotalDamage(0)
+    player2TotalDamage = self.getTotalDamage(1)
 
     self.active[0].sort(key=lambda x: x.priority)
     self.active[1].sort(key=lambda x: x.priority)
 
-    for c in self.active[0]:
-      if sum_p2 < c.defense:
-        c.defense -= sum_p2
-        sum_p2 = 0
+    # loop through player 1's active cards
+    for card in self.active[0]:
+      # if player 2 does not kill card
+      if player2TotalDamage < card.defense:
+        card.defense = card.defense - player2TotalDamage
+        player2TotalDamage = 0
+      # player 2 kills card and has damage left over
+      elif player2TotalDamage > card.defense:
+        self.players[0].removeCard(card)
+        player2TotalDamage = player2TotalDamage - card.defense
+      # player 2 kills card and has no damage left over
       else:
-        self.active[0].remove(c)
-        sum_p2 -= c.defense
-    for c in self.active[1]:
-      if sum_p1 < c.defense:
-        c.defense -= sum_p1
-        sum_p1 = 0
+        self.players[0].removeCard(card)
+        player2TotalDamage = 0
+        
+    # loop through player 1's active cards
+    for card in self.active[1]:
+      # if player 1 does not kill card
+      if player1TotalDamage < card.defense:
+        card.defense = card.defense - player1TotalDamage
+        player1TotalDamage = 0
+      # player 1 kills card and has damage left over
+      elif player1TotalDamage > card.defense:
+        self.players[1].removeCard(card)
+        player1TotalDamage = player1TotalDamage - card.defense
+      # player 1 kills card and has no damage left over
       else:
-        self.active[1].remove(c)
-        sum_p1 -= c.defense
+        self.players[1].removeCard(card)
+        player1TotalDamage = 0
 
-    self.players[0].reduceHealth(sum_p2)
-    self.players[1].reduceHealth(sum_p1)
+#    for c in self.active[0]:
+#      if sum_p2 < c.defense:
+#        c.defense -= sum_p2
+#        sum_p2 = 0
+#      else:
+#        self.active[0].remove(c)
+#        sum_p2 -= c.defense
+#
+#    for c in self.active[1]:
+#      if sum_p1 < c.defense:
+#        c.defense -= sum_p1
+#        sum_p1 = 0
+#      else:
+#        self.active[1].remove(c)
+#        sum_p1 -= c.defense
+
+    self.players[0].reduceHealth(player2TotalDamage)
+    self.players[1].reduceHealth(player1TotalDamage)
 
     self.end = [False, False]
 
@@ -137,6 +168,9 @@ class Game:
     for i in range(5):
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
+    # debug priority stuff
+    self.players[0].addCard(deck[12].__copy__())
+    self.players[1].addCard(deck[12].__copy__())
 
   def reset(self):
     self.players = [Player(), Player()]
