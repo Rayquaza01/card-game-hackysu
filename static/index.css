@@ -1,17 +1,49 @@
 body {
     font-family: sans-serif;
+    background-color: #eeeeeeee;
+}
+
+a {
+    color: black;
+}
+
+#handCont {
+    background-color: lightpink;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#active {
+    background-color: lightcoral;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#oppActive {
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .cont {
     display: flex;
+    height: 120px;
 }
 
 .player {
-    flex-grow: 1;
+    flex-grow: 2;
+    padding-left: 10px;
+    padding-right: 10px;
+
 }
 
 .player2 {
     text-align: right;
+}
+
+#turnCounter {
+    text-align: center;
+    flex-grow: 1;
 }
 
 .card {
@@ -21,5 +53,11 @@ body {
 }
 
 .currentPlayer {
-    background-color: green;
+    background-color: lightgreen;
+    border-radius: 10px;
+}
+
+#end {
+    float:right;
+    height: 20px;
 }
