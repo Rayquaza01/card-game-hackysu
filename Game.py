@@ -266,17 +266,6 @@ class Game:
     for i in range(5):
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
-    # debug priority stuff
-    self.players[0].addCard(deck[14].__copy__())
-    self.players[1].addCard(deck[14].__copy__())
-    self.players[0].addCard(deck[12].__copy__())
-    self.players[1].addCard(deck[12].__copy__())
-    self.players[0].addCard(deck[19].__copy__())
-    self.players[0].addCard(deck[20].__copy__())
-    self.players[1].addCard(deck[19].__copy__())
-    self.players[1].addCard(deck[20].__copy__())
-    self.players[0].addCard(deck[21].__copy__())
-    self.players[1].addCard(deck[21].__copy__())
 
   def reset(self):
     self.players = [Player(13), Player(10)]
