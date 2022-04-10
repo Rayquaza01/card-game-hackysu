@@ -28,7 +28,9 @@ a {
 .cont {
     display: flex;
     height: 120px;
+}
 
+.hand, .active, .oppActive {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -54,6 +56,8 @@ a {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+
+    padding-left: 10px;
 }
 
 .currentPlayer {
