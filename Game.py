@@ -145,6 +145,12 @@ class Game:
             break
         if not OK:
           return
+          
+      if c.name == "Empower":
+        card = random.choice(filter(lambda x: not x.toBeRemoved, self.active[player]))
+        for emp in deckEmpowered:
+          if emp.name == empoweredLookup[card.name]:
+            card = emp.__copy__()
 
       self.active[player].append(c)
       self.players[player].removeCard(c)
@@ -251,6 +257,8 @@ class Game:
     self.players[0].addCard(deck[20].__copy__())
     self.players[1].addCard(deck[19].__copy__())
     self.players[1].addCard(deck[20].__copy__())
+    self.players[0].addCard(deck[21].__copy__())
+    self.players[1].addCard(deck[21].__copy__())
 
   def reset(self):
     self.players = [Player(13), Player(10)]
@@ -286,5 +294,29 @@ deck = [
   Card("Sun Card", 3, 0, 0, 3),
   Card("Draw", 3, 0, 0, 3),
   Card("Shield", 3, 0, 0, 3),
-  Card("Fearsome Presence", 3, 0, 0, -3)
+  Card("Fearsome Presence", 3, 0, 0, -3),
+  Card("Empower", 3, 0, 0, 3)
 ]
+deckEmpowered = [
+  Card("Black Knight", 0, 5, 4, 0), 
+  Card("Eternal Squire", 0, 3, 5, 0),
+  Card("Goon Squad", 0, 5, 6, -1),
+  Card("Shadow Assassin", 0, 10, 3, 0),
+  Card("Dragon", 0, 10, 8, 0),
+  Card("Spiked Turtle", 0, 4, 12, -2),
+  Card("Ranger Elf", 0, 6, 1, 2),
+  Card("Feral Boar", 0, 3, 5, 0),
+  Card("Mountain Lion", 0, 4, 4, 0)
+]
+
+empoweredLookup = {
+  "Knight": "Black Knight",
+  "Squire": "Eternal Squire",
+  "Minions": "Goon Squad",
+  "Ninja": "Shadow Assassin",
+  "Wyvern": "Dragon",
+  "Giant Turtle": "Spiked Turtle",
+  "Wood Elf": "Ranger Elf",
+  "Boar": "Feral Boar",
+  "Bobcat": "Mountain Lion"
+}
