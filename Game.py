@@ -64,10 +64,15 @@ class Game:
     self.turnCounter = int(self.turnNumber / 2)
 
     if self.end[0] and self.end[1]:
-      time.sleep(5)
       self.cardInteraction()
       self.players[0].addMana(3)
       self.players[1].addMana(3)
+      self.players[0].print()
+
+      self.end = [False, False]
+
+      self.players[0].addCard(random.choice(deck).__copy__())
+      self.players[1].addCard(random.choice(deck).__copy__())
 
       if self.players[0].health <= 0 and self.players[1].health > 0:
         self.gameOver = True
@@ -107,8 +112,8 @@ class Game:
     player1TotalDamage = self.getTotalDamage(0)
     player2TotalDamage = self.getTotalDamage(1)
 
-    self.active[0].sort(key=lambda x: x.priority)
-    self.active[1].sort(key=lambda x: x.priority)
+    #self.active[0].sort(key=lambda x: x.priority)
+    #self.active[1].sort(key=lambda x: x.priority)
 
     # loop through player 1's active cards
     for card in self.active[0]:
@@ -116,13 +121,13 @@ class Game:
       if player2TotalDamage < card.defense:
         card.defense = card.defense - player2TotalDamage
         player2TotalDamage = 0
-      # player 2 kills card and has damage left over
       elif player2TotalDamage > card.defense:
-        self.players[0].removeCard(card)
+        # player 2 kills card and has damage left over
+        self.active[0].remove(card)
         player2TotalDamage = player2TotalDamage - card.defense
-      # player 2 kills card and has no damage left over
       else:
-        self.players[0].removeCard(card)
+        # player 2 kills card and has no damage left over
+        self.active[0].remove(card)
         player2TotalDamage = 0
         
     # loop through player 1's active cards
@@ -131,13 +136,13 @@ class Game:
       if player1TotalDamage < card.defense:
         card.defense = card.defense - player1TotalDamage
         player1TotalDamage = 0
-      # player 1 kills card and has damage left over
       elif player1TotalDamage > card.defense:
-        self.players[1].removeCard(card)
+        # player 1 kills card and has damage left over
+        self.active[1].remove(card)
         player1TotalDamage = player1TotalDamage - card.defense
-      # player 1 kills card and has no damage left over
       else:
-        self.players[1].removeCard(card)
+        # player 1 kills card and has no damage left over
+        self.active[1].remove(card)
         player1TotalDamage = 0
 
 #    for c in self.active[0]:
@@ -158,11 +163,6 @@ class Game:
 
     self.players[0].reduceHealth(player2TotalDamage)
     self.players[1].reduceHealth(player1TotalDamage)
-
-    self.end = [False, False]
-
-    self.players[0].addCard(random.choice(deck).__copy__())
-    self.players[1].addCard(random.choice(deck).__copy__())
     
   def dealHands(self):
     for i in range(5):
