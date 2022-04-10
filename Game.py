@@ -132,6 +132,19 @@ class Game:
             break
         if not OK:
           return
+        
+      if c.name == "Fearsome Presence":
+        OK = False
+        for card in self.active[(player + 1) % 2][::-1]:
+          if card.defense == 0:
+            continue
+          else:
+            c.defense = card.damage
+            c.toBeRemoved = True
+            OK = True
+            break
+        if not OK:
+          return
 
       self.active[player].append(c)
       self.players[player].removeCard(c)
@@ -232,12 +245,12 @@ class Game:
     # debug priority stuff
     self.players[0].addCard(deck[14].__copy__())
     self.players[1].addCard(deck[14].__copy__())
+    self.players[0].addCard(deck[12].__copy__())
+    self.players[1].addCard(deck[12].__copy__())
     self.players[0].addCard(deck[19].__copy__())
+    self.players[0].addCard(deck[20].__copy__())
     self.players[1].addCard(deck[19].__copy__())
-    self.players[0].addCard(deck[19].__copy__())
-    self.players[0].addCard(deck[19].__copy__())
-    self.players[1].addCard(deck[19].__copy__())
-    self.players[1].addCard(deck[19].__copy__())
+    self.players[1].addCard(deck[20].__copy__())
 
   def reset(self):
     self.players = [Player(13), Player(10)]
@@ -272,5 +285,6 @@ deck = [
   Card("Harden", 3, 0, 0, 3),
   Card("Sun Card", 3, 0, 0, 3),
   Card("Draw", 3, 0, 0, 3),
-  Card("Shield", 3, 0, 0, 3)
+  Card("Shield", 3, 0, 0, 3),
+  Card("Fearsome Presence", 3, 0, 0, -3)
 ]
