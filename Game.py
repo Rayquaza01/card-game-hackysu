@@ -137,7 +137,6 @@ class Game:
     for i in range(5):
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
-      self.players[0].addCard(deck[12].__copy__())
 
   def reset(self):
     self.players = [Player(), Player()]
