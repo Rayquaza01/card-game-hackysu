@@ -27,7 +27,7 @@ class Player:
       cards.append(card.name)
     print(", ".join(cards))
 
-  def __init__(self):
+  def __init__(self, mana):
     self.health = 30
-    self.mana = 10
+    self.mana = mana
     self.hand = []

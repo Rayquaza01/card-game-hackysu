@@ -99,6 +99,16 @@ class Game:
         else:
           return
 
+      if c.name == "Shield":
+        if self.players[player].health <= 33:
+          self.players[player].health = self.players[player].health + 2
+        else:
+          return
+
+      if c.name == "Draw":
+        self.players[player].addCard(random.choice(deck).__copy__())
+        self.players[player].addCard(random.choice(deck).__copy__())
+
       if c.name == "Inspire":
         OK = False
         for card in self.active[player][::-1]:
@@ -222,13 +232,15 @@ class Game:
     # debug priority stuff
     self.players[0].addCard(deck[14].__copy__())
     self.players[1].addCard(deck[14].__copy__())
-    self.players[0].addCard(deck[16].__copy__())
-    self.players[1].addCard(deck[16].__copy__())
-    self.players[0].addCard(deck[17].__copy__())
-    self.players[1].addCard(deck[17].__copy__())
+    self.players[0].addCard(deck[19].__copy__())
+    self.players[1].addCard(deck[19].__copy__())
+    self.players[0].addCard(deck[19].__copy__())
+    self.players[0].addCard(deck[19].__copy__())
+    self.players[1].addCard(deck[19].__copy__())
+    self.players[1].addCard(deck[19].__copy__())
 
   def reset(self):
-    self.players = [Player(), Player()]
+    self.players = [Player(13), Player(10)]
     self.end = [False, False]
     self.active = [[], []]
     self.registered = [False, False]
@@ -258,5 +270,7 @@ deck = [
   Card("Fireball!", 3, 2, 0, 3), #Fireball: Spell that does 2 damage 
   Card("Inspire", 3, 0, 0, 3), #Inspire: Spell that adds 2 damage to the lowest priority non-spell card
   Card("Harden", 3, 0, 0, 3),
-  Card("Sun Card", 3, 0, 0, 3)
+  Card("Sun Card", 3, 0, 0, 3),
+  Card("Draw", 3, 0, 0, 3),
+  Card("Shield", 3, 0, 0, 3)
 ]
