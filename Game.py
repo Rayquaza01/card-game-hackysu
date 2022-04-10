@@ -106,6 +106,8 @@ class Game:
     sum = 0
     for c in self.active[player]:
       sum = sum + c.damage
+      if c.name == "Fireball!":
+        c.toBeRemoved = True
     return sum
 
   def cardInteraction(self):
@@ -215,5 +217,6 @@ deck = [
   Card("Wyvern", 8, 7, 6, 0),
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
-  Card("Giant Turtle", 5, 0, 8, -2)
+  Card("Giant Turtle", 5, 0, 8, -2), 
+  Card("Fireball!", 3, 2, 0, -3)
 ]
