@@ -146,10 +146,15 @@ setInterval(async () => {
     client.refreshUI()
     if (gs.gameOver) {
         if (gs.winner === client.player) {
-            // redirect to win page
-            location.href = "/static/win.html"
+            setTimeout(() => {
+                // redirect to win page
+                location.href = "/static/win.html"
+            }, 5000)
         } else {
-            location.href = "/static/lose.html"
+            setTimeout(() => {
+                // redirect to lose page
+                location.href = "/static/lose.html"
+            }, 5000)
         }
     }
 }, 1000)
