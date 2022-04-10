@@ -93,6 +93,17 @@ class Game:
     
     c = self.players[player].getCard(card)
     if (self.players[player].mana >= c.manaCost):
+      if c.name == "Inspire":
+        OK = False
+        for card in self.active[player][::-1]:
+          if card.defense == 0:
+            continue
+          else:
+            card.damage = card.damage + 2
+            OK = True
+        if not OK:
+          return
+
       self.active[player].append(c)
       self.players[player].removeCard(c)
       self.players[player].reduceMana(c.manaCost)
@@ -106,7 +117,7 @@ class Game:
     sum = 0
     for c in self.active[player]:
       sum = sum + c.damage
-      if c.name == "Fireball!":
+      if c.defense == 0:
         c.toBeRemoved = True
     return sum
 
@@ -124,7 +135,10 @@ class Game:
     #   p1ActiveCopy.append(card)
 
     for card in self.active[0]:
-      print(card.name)
+      # spells have no health
+      if card.defense == 0:
+        continue
+
       # if player 2 does not kill card
       if player2TotalDamage < card.defense:
         card.defense = card.defense - player2TotalDamage
@@ -187,8 +201,8 @@ class Game:
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
     # debug priority stuff
-    self.players[0].addCard(deck[12].__copy__())
-    self.players[1].addCard(deck[12].__copy__())
+    self.players[0].addCard(deck[15].__copy__())
+    self.players[1].addCard(deck[15].__copy__())
 
   def reset(self):
     self.players = [Player(), Player()]
@@ -218,5 +232,6 @@ deck = [
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
   Card("Giant Turtle", 5, 0, 8, -2), 
-  Card("Fireball!", 3, 2, 0, -3)
+  Card("Fireball!", 3, 2, 0, 3),
+  Card("Inspire", 3, 0, 0, 3)
 ]
