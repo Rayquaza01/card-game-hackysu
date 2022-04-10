@@ -41,6 +41,11 @@ def register():
 def getPlayerInfo():
   return game.getPlayerInfo(int(request.args["player"]))
 
+@app.route("/endTurn")
+def endTurn():
+  game.endTurn(int(request.args["player"]))
+  return "OK"
+
 @app.route("/reset")
 def reset():
   game.reset()

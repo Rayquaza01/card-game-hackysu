@@ -3,9 +3,45 @@
     <head>
         <meta charset="utf-8">
         <title>Card Game Hack YSU 2022</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
     </head>
 
     <body>
+        <div class="cont players">
+            <div class="player" id="myInfo">
+                <h3>My Info</h3>
+                <p>Health: <span id="health"></span></p>
+                <p>Mana: <span id="mana"></span></p>
+            </div>
+
+            <div id="turnCounter">
+                Turn Number <span id="counter"></span>
+            </div>
+
+            <div class="player player2" id="oppInfo">
+                <h3>Opponent's Info</h3>
+                <p>Health: <span id="opphealth"></span></p>
+                <p>Mana: <span id="oppmana"></span></p>
+            </div>
+        </div>
+
+        <h3>Opponent's Active Card</h3>
+        <div class="cont oppActive" id="oppActive">
+        </div>
+
+        <hr>
+
+        <h3>My Active Cards</h3>
+        <div class="cont active" id="active">
+        </div>
+
+        <hr>
+
+        <h3>My Hand</h3>
+        <div class="cont hand" id="handCont">
+        </div>
+        <button id="end">End Turn</button>
+
         <script src="index.js"></script>
     </body>
 </html>
