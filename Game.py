@@ -95,17 +95,20 @@ class Game:
     if (self.players[player].mana >= c.manaCost):
       if c.name == "Sun Card":
         if self.players[player].health <= 28:
+          c.toBeRemoved = True
           self.players[player].health = self.players[player].health + 2
         else:
           return
 
       if c.name == "Shield":
         if self.players[player].health <= 33:
+          c.toBeRemoved = True
           self.players[player].health = self.players[player].health + 2
         else:
           return
 
       if c.name == "Draw":
+        c.toBeRemoved = True
         self.players[player].addCard(random.choice(deck).__copy__())
         self.players[player].addCard(random.choice(deck).__copy__())
 
@@ -115,6 +118,7 @@ class Game:
           if card.defense == 0:
             continue
           else:
+            c.toBeRemoved = True
             card.damage = card.damage + 2
             OK = True
             break
@@ -127,6 +131,7 @@ class Game:
           if card.defense == 0:
             continue
           else:
+            c.toBeRemoved = True
             card.defense = card.defense + 2
             OK = True
             break
@@ -147,10 +152,23 @@ class Game:
           return
           
       if c.name == "Empower":
-        card = random.choice(filter(lambda x: not x.toBeRemoved, self.active[player]))
-        for emp in deckEmpowered:
-          if emp.name == empoweredLookup[card.name]:
-            card = emp.__copy__()
+        nonSpellList = list(filter(lambda x: not x.toBeRemoved, self.active[player]))
+        if len(nonSpellList) > 0:
+          card = random.choice(nonSpellList)
+          for emp in deckEmpowered:
+            if emp.name == empoweredLookup[card.name]:
+              c.toBeRemoved = True
+              card.name = emp.name
+              card.defense = emp.defense
+              card.damage = emp.damage
+              card.priority = emp.priority
+              card.manaCost = emp.manaCost
+              break
+        else:
+          return
+
+      if c.name == "Fireball!":
+        c.toBeRemoved = True
 
       self.active[player].append(c)
       self.players[player].removeCard(c)
