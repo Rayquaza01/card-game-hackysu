@@ -112,25 +112,37 @@ class Game:
     player1TotalDamage = self.getTotalDamage(0)
     player2TotalDamage = self.getTotalDamage(1)
 
-    #self.active[0].sort(key=lambda x: x.priority)
-    #self.active[1].sort(key=lambda x: x.priority)
+    self.active[0].sort(key=lambda x: x.priority)
+    self.active[1].sort(key=lambda x: x.priority)
 
     # loop through player 1's active cards
+    # p1ActiveCopy = copy.deepcopy(self.active[0])
+    # p1ActiveCopy = []
+    # for card in self.active[0]:
+    #   p1ActiveCopy.append(card)
+
     for card in self.active[0]:
+      print(card.name)
       # if player 2 does not kill card
       if player2TotalDamage < card.defense:
         card.defense = card.defense - player2TotalDamage
         player2TotalDamage = 0
       elif player2TotalDamage > card.defense:
         # player 2 kills card and has damage left over
-        self.active[0].remove(card)
+        # self.active[0].remove(card)
+        card.toBeRemoved = True
         player2TotalDamage = player2TotalDamage - card.defense
+        print(self.active)
       else:
         # player 2 kills card and has no damage left over
-        self.active[0].remove(card)
+        # self.active[0].remove(card)
+        card.toBeRemoved = True
         player2TotalDamage = 0
+
+    self.active[0] = list(filter(lambda x: not x.toBeRemoved, self.active[0]))
         
     # loop through player 1's active cards
+    # p2ActiveCopy = copy.deepcopy(self.active[1])
     for card in self.active[1]:
       # if player 1 does not kill card
       if player1TotalDamage < card.defense:
@@ -138,12 +150,16 @@ class Game:
         player1TotalDamage = 0
       elif player1TotalDamage > card.defense:
         # player 1 kills card and has damage left over
-        self.active[1].remove(card)
+        # self.active[1].remove(card)
+        card.toBeRemoved = True
         player1TotalDamage = player1TotalDamage - card.defense
       else:
         # player 1 kills card and has no damage left over
-        self.active[1].remove(card)
+        # self.active[1].remove(card)
+        card.toBeRemoved = True
         player1TotalDamage = 0
+
+    self.active[1] = list(filter(lambda x: not x.toBeRemoved, self.active[1]))
 
 #    for c in self.active[0]:
 #      if sum_p2 < c.defense:

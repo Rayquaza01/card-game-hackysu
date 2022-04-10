@@ -12,7 +12,6 @@ def root():
 
 @app.route("/getHand")
 def getHand():
-  print(request.args)
   hand = game.getHand(int(request.args["player"]))
   hand_dict = []
   for x in hand:

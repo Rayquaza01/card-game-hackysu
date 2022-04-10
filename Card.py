@@ -26,3 +26,4 @@ class Card:
     self.damage = damage
     self.defense = defense
     self.priority = priority
+    self.toBeRemoved = False
