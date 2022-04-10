@@ -87,7 +87,7 @@ class Game:
       return
     
     c = self.players[player].getCard(card)
-    if (self.players[player].mana > c.manaCost):
+    if (self.players[player].mana >= c.manaCost):
       self.active[player].append(c)
       self.players[player].removeCard(c)
       self.players[player].reduceMana(c.manaCost)
@@ -106,6 +106,9 @@ class Game:
   def cardInteraction(self):
     sum_p1 = self.getTotalDamage(0)
     sum_p2 = self.getTotalDamage(1)
+
+    self.active[0].sort(key=lambda x: x.priority)
+    self.active[1].sort(key=lambda x: x.priority)
 
     for c in self.active[0]:
       if sum_p2 < c.defense:
@@ -134,6 +137,7 @@ class Game:
     for i in range(5):
       self.players[0].addCard(random.choice(deck).__copy__())
       self.players[1].addCard(random.choice(deck).__copy__())
+      self.players[0].addCard(deck[12].__copy__())
 
   def reset(self):
     self.players = [Player(), Player()]
