@@ -26,6 +26,14 @@ function createCard(card, cb) {
     priority.innerText = "Priority: " + (-card.priority).toString();
     c.appendChild(priority)
 
+    if (card.defense === 0) {
+        const help = document.createElement("a");
+        help.href = "/static/spells.html#" + card.name;
+        help.target = "_blank";
+        help.innerText = "Help"
+        c.appendChild(help);
+    }
+
     return c;
 }
 
