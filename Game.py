@@ -104,6 +104,18 @@ class Game:
         if not OK:
           return
 
+      if c.name == "Harden":
+        OK = False
+        for card in self.active[player]:
+          if card.defense == 0:
+            continue
+          else:
+            card.defense = card.defense + 2
+            OK = True
+        if not OK:
+          return
+        
+
       self.active[player].append(c)
       self.players[player].removeCard(c)
       self.players[player].reduceMana(c.manaCost)
@@ -232,6 +244,7 @@ deck = [
   Card("Ninja", 3, 5, 1, 0),
   Card("Wood Elf", 4, 4, 1, 2), 
   Card("Giant Turtle", 5, 0, 8, -2), 
-  Card("Fireball!", 3, 2, 0, 3),
-  Card("Inspire", 3, 0, 0, 3)
+  Card("Fireball!", 3, 2, 0, 3), #Fireball: Spell that does 2 damage 
+  Card("Inspire", 3, 0, 0, 3), #Inspire: Spell that adds 2 damage to the lowest priority non-spell card
+  Card("Harden", 3, 0, 0, 3)
 ]
